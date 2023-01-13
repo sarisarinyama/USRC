@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packages xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <package id="System.Drawing.Common" version="7.0.0" targetFramework="net462" allowedVersions="[7.0.0]" />
+</packages>

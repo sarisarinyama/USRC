@@ -1,0 +1,5 @@
+  <ItemGroup>
+    
+    <Analyzer Include="Assets/NuGet/Microsoft.Unity.Analyzers.dll" />
+    
+  </ItemGroup>

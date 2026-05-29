@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace BGCode
+namespace sarisari
 {
 
-    public class BGEnum
+    public class Enums
     {    // Start is called before the first frame update
 
         public enum AudioFileExtension

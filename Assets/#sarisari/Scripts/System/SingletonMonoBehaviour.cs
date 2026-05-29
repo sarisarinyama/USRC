@@ -1,7 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-public abstract class SingletonMonoBehaviour<T> : MonoBehaviour  where T : MonoBehaviour 
+public abstract class SingletonMonoBehaviour<T> : SerializedMonoBehaviour  where T : SerializedMonoBehaviour 
 {
    private static T instance;
    public static T Instance

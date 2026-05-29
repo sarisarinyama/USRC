@@ -8,17 +8,108 @@ using BansheeGz.BGDatabase;
 //=============================================================
 
 #pragma warning disable 414
-
-[Preserve]
-public static class BGCodeGenRuntimeInitializer
+namespace BGCode
 {
+
 	[Preserve]
-	public static void InitializeCodeGenRuntime()
+	public sealed partial class BGG_S_AudioFile : BGEntity
 	{
+		private static BansheeGz.BGDatabase.BGMetaRow _metaDefault;
+		public static BansheeGz.BGDatabase.BGMetaRow MetaDefault => _metaDefault ??= BGCodeGenUtils.GetMeta<BansheeGz.BGDatabase.BGMetaRow>(new BGId(5172488339012995042UL,4722237365017767340UL), () => _metaDefault = null);
+		public static BansheeGz.BGDatabase.BGRepoEvents Events => BGRepo.I.Events;
+		public static int CountEntities => MetaDefault.CountEntities;
+		public System.String F_name
+		{
+			get => _F_name[Index];
+			set => _F_name[Index] = value;
+		}
+		public System.String F_Face
+		{
+			get => _F_Face[Index];
+			set => _F_Face[Index] = value;
+		}
+		public System.String F_Extension
+		{
+			get => _F_Extension[Index];
+			set => _F_Extension[Index] = value;
+		}
+		public System.String F_FullPath
+		{
+			get => _F_FullPath[Index];
+			set => _F_FullPath[Index] = value;
+		}
+		public System.String F_InitBGM
+		{
+			get => _F_InitBGM[Index];
+			set => _F_InitBGM[Index] = value;
+		}
+		private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_F_name;
+		public static BansheeGz.BGDatabase.BGFieldEntityName _F_name => _ufle12jhs77_F_name ??= BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldEntityName>(MetaDefault, new BGId(5458195111669257105UL, 3435787868522378657UL), () => _ufle12jhs77_F_name = null);
+		private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_F_Face;
+		public static BansheeGz.BGDatabase.BGFieldString _F_Face => _ufle12jhs77_F_Face ??= BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(5566465810555506492UL, 4949523607591250072UL), () => _ufle12jhs77_F_Face = null);
+		private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_F_Extension;
+		public static BansheeGz.BGDatabase.BGFieldString _F_Extension => _ufle12jhs77_F_Extension ??= BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(5751154920711707471UL, 18225949828960589962UL), () => _ufle12jhs77_F_Extension = null);
+		private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_F_FullPath;
+		public static BansheeGz.BGDatabase.BGFieldString _F_FullPath => _ufle12jhs77_F_FullPath ??= BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(5042564084184458902UL, 16944338147638492290UL), () => _ufle12jhs77_F_FullPath = null);
+		private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_F_InitBGM;
+		public static BansheeGz.BGDatabase.BGFieldString _F_InitBGM => _ufle12jhs77_F_InitBGM ??= BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(5008895457991799369UL, 15087279663149065647UL), () => _ufle12jhs77_F_InitBGM = null);
+		private BGG_S_AudioFile() : base(MetaDefault) {}
+		private BGG_S_AudioFile(BGId id) : base(MetaDefault, id) {}
+		private BGG_S_AudioFile(BGMetaEntity meta) : base(meta) {}
+		private BGG_S_AudioFile(BGMetaEntity meta, BGId id) : base(meta, id) {}
+		public static BGG_S_AudioFile FindEntity(Predicate<BGG_S_AudioFile> filter) => BGCodeGenUtils.FindEntity(MetaDefault, filter);
+		public static List<BGG_S_AudioFile> FindEntities(Predicate<BGG_S_AudioFile> filter, List<BGG_S_AudioFile> result=null, Comparison<BGG_S_AudioFile> sort=null) => BGCodeGenUtils.FindEntities(MetaDefault, filter, result, sort);
+		public static void ForEachEntity(Action<BGG_S_AudioFile> action, Predicate<BGG_S_AudioFile> filter=null, Comparison<BGG_S_AudioFile> sort=null) => BGCodeGenUtils.ForEachEntity(MetaDefault, action, filter, sort);
+		public static BGG_S_AudioFile GetEntity(BGId entityId) => (BGG_S_AudioFile) MetaDefault.GetEntity(entityId);
+		public static BGG_S_AudioFile GetEntity(int index) => (BGG_S_AudioFile) MetaDefault[index];
+		public static BGG_S_AudioFile GetEntity(string entityName) => (BGG_S_AudioFile) MetaDefault.GetEntity(entityName);
+		public static BGG_S_AudioFile NewEntity() => (BGG_S_AudioFile) MetaDefault.NewEntity();
+		public static BGG_S_AudioFile NewEntity(BGId entityId) => (BGG_S_AudioFile) MetaDefault.NewEntity(entityId);
+		public static BGG_S_AudioFile NewEntity(Action<BGG_S_AudioFile> callback) => (BGG_S_AudioFile) MetaDefault.NewEntity(new BGMetaEntity.NewEntityContext(entity => callback((BGG_S_AudioFile)entity)));
+		public static void InitializeCodeGenRuntime()
+		{
+			_metaDefault = BGCodeGenUtils.GetMeta<BansheeGz.BGDatabase.BGMetaRow>(new BGId(5172488339012995042UL,4722237365017767340UL), ReleaseCodeGenRuntime);
+			_ufle12jhs77_F_name = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldEntityName>(_metaDefault, new BGId(5458195111669257105UL, 3435787868522378657UL));
+			_ufle12jhs77_F_Face = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(_metaDefault, new BGId(5566465810555506492UL, 4949523607591250072UL));
+			_ufle12jhs77_F_Extension = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(_metaDefault, new BGId(5751154920711707471UL, 18225949828960589962UL));
+			_ufle12jhs77_F_FullPath = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(_metaDefault, new BGId(5042564084184458902UL, 16944338147638492290UL));
+			_ufle12jhs77_F_InitBGM = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(_metaDefault, new BGId(5008895457991799369UL, 15087279663149065647UL));
+		}
+		public static void ReleaseCodeGenRuntime()
+		{
+			_metaDefault = null;
+			_ufle12jhs77_F_name = null;
+			_ufle12jhs77_F_Face = null;
+			_ufle12jhs77_F_Extension = null;
+			_ufle12jhs77_F_FullPath = null;
+			_ufle12jhs77_F_InitBGM = null;
+		}
+
+		[Preserve]
+		public sealed class Factory : BGEntity.EntityFactory
+		{
+			public BGEntity NewEntity(BGMetaEntity meta) => new BGG_S_AudioFile(meta);
+			public BGEntity NewEntity(BGMetaEntity meta, BGId id) => new BGG_S_AudioFile(meta, id);
+		}
+
+		public static class __Names
+		{
+			public const string Meta = "S_AudioFile";
+			public const string name = "name";
+			public const string Face = "Face";
+			public const string Extension = "Extension";
+			public const string FullPath = "FullPath";
+			public const string InitBGM = "InitBGM";
+		}
 	}
+
 	[Preserve]
-	public static void ReleaseCodeGenRuntime()
+	public static class BGCodeGenRuntimeInitializer
 	{
+		[Preserve]
+		public static void InitializeCodeGenRuntime() => BGG_S_AudioFile.InitializeCodeGenRuntime();
+		[Preserve]
+		public static void ReleaseCodeGenRuntime() => BGG_S_AudioFile.ReleaseCodeGenRuntime();
 	}
 }
 #pragma warning restore 414

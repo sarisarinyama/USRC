@@ -34,154 +34,131 @@ public static class SRCInit
 
 
         //Src.iniが無ければ作る
-        if (!CommonLib.FileExists(GlobalData.Instance.AppPath + "Src.ini"))
+        GlobalData.Instance.IniPath = GlobalData.Instance.AppPath + "Src.ini";
+        if (!CommonLib.FileExists(GlobalData.Instance.IniPath))
         {
-            CreateIniFile(GlobalData.Instance.AppPath + "Src.ini");
+            IniFileUtil.CreateIniFile(GlobalData.Instance.IniPath);
         }
-    }
 
-    public static void CreateIniFile(string path)
-    {
-        using (StreamWriter writer = new StreamWriter(path, append: true))
+
+        //MP3の再生音量
+        string buf = IniFileUtil.ReadIni("Option", "MP3Volume", "", GlobalData.Instance.IniPath);
+        if (buf == "")
         {
-            writer.WriteLine(";SRCの設定ファイルです。");
-            writer.WriteLine(";項目の内容に関してはヘルプの");
-            writer.WriteLine("; 操作方法 => マップコマンド => 設定変更");
-            writer.WriteLine(";の項を参照して下さい。");
-            writer.WriteLine("");
-            writer.WriteLine("[Option]");
-            writer.WriteLine(";メッセージのウェイト。標準は700");
-            writer.WriteLine("MessageWait=700");
-            writer.WriteLine("");
-            writer.WriteLine(";ターン数の表示 [On|Off]");
-            writer.WriteLine("Turn=Off");
-            writer.WriteLine("");
-            writer.WriteLine(";マス目の表示 [On|Off]");
-            writer.WriteLine("Square=Off");
-            writer.WriteLine("");
-            writer.WriteLine(";敵フェイズにはＢＧＭを変更しない [On|Off]");
-            writer.WriteLine("KeepEnemyBGM=Off");
-            writer.WriteLine("");
-            writer.WriteLine(";自動防御モード [On|Off]");
-            writer.WriteLine("AutoDefense=Off");
-            writer.WriteLine("");
-            writer.WriteLine(";自動カーソル移動 [On|Off]");
-            writer.WriteLine("AutoMoveCursor=On");
-            writer.WriteLine("");
-            writer.WriteLine(";スペシャルパワーアニメ [On|Off]");
-            writer.WriteLine("SpecialPowerAnimation=On");
-            writer.WriteLine("");
-            writer.WriteLine(";戦闘アニメ [On|Off]");
-            writer.WriteLine("BattleAnimation=On");
-            writer.WriteLine("");
-            writer.WriteLine(";戦闘アニメの拡張機能 [On|Off]");
-            writer.WriteLine("ExtendedAnimation=On");
-            writer.WriteLine("");
-            writer.WriteLine(";武器準備アニメの自動選択表示 [On|Off]");
-            writer.WriteLine("WeaponAnimation=On");
-            writer.WriteLine("");
-            writer.WriteLine(";移動アニメ [On|Off]");
-            writer.WriteLine("MoveAnimation=On");
-            writer.WriteLine("");
-            writer.WriteLine(";MIDI音源リセットの種類 [None|GM|GS|XG]");
-            writer.WriteLine("MidiReset=None");
-            writer.WriteLine("");
-            writer.WriteLine(";MIDI演奏にDirectMusicを使う [On|Off]");
-            if (CommonLib.GetWinVersion() >= 500)
-            {
-                //NT系のOSではデフォルトでDirectMusicを使う
-                //DirectMusicの初期化を試みる
-                SoundManager.InitDirectMusic();
-                //DirectMusicが使用可能かどうかで設定を切り替え
-                if (SoundManager.useDirectMusic)
-                {
-                    writer.WriteLine("UseDirectMusic=On");
-                }
-                else
-                {
-                    writer.WriteLine("UseDirectMusic=Off");
-                }
-            }
-            else
-            {
-                //NT系OSでなければMCIを使う
-                SoundManager.useMCI = true;
-                writer.WriteLine("UseDirectMusic=Off");
-            }
-
-            writer.WriteLine("");
-            writer.WriteLine(";DirectMusicで使うMIDI音源のポート番号 [自動検索=0]");
-            writer.WriteLine("MIDIPortID=0");
-            writer.WriteLine("");
-            writer.WriteLine(";MP3再生時の音量 (0～100)");
-            writer.WriteLine("MP3Volume=50");
-            writer.WriteLine("");
-            writer.WriteLine(";MP3の出力フレーム数");
-            writer.WriteLine("MP3OutputBlock=20");
-            writer.WriteLine("");
-            writer.WriteLine(";MP3の入力直後のスリープ時間(ミリ秒)");
-            writer.WriteLine("MP3IutputSleep=5");
-            writer.WriteLine("");
-            writer.WriteLine(";WAV再生にDirectSoundを使う [On|Off]");
-            writer.WriteLine("UseDirectSound=On");
-            writer.WriteLine("");
-            writer.WriteLine(";画像バッファの枚数");
-            writer.WriteLine("ImageBufferNum=64");
-            writer.WriteLine("");
-            writer.WriteLine(";画像バッファの最大サイズ (MB)");
-            writer.WriteLine("MaxImageBufferSize=8");
-            writer.WriteLine("");
-            writer.WriteLine(";拡大画像を画像バッファに保存する [On|Off]");
-            writer.WriteLine("KeepStretchedImage=");
-            writer.WriteLine("");
-            if (CommonLib.GetWinVersion() >= 500)
-            {
-                writer.WriteLine(";透過描画にAPI関数TransparentBltを使う [On|Off]");
-                writer.WriteLine("UseTransparentBlt=On");
-                writer.WriteLine("");
-            }
-
-            writer.WriteLine(";拡張データのフォルダ (フルパスで指定)");
-            writer.WriteLine("ExtDataPath=");
-            writer.WriteLine("ExtDataPath2=");
-            writer.WriteLine("");
-            writer.WriteLine(";デバッグモード [On|Off]");
-            writer.WriteLine("DebugMode=Off");
-            writer.WriteLine("");
-            writer.WriteLine(";新ＧＵＩ(テスト中) [On|Off]");
-            writer.WriteLine("NewGUI=Off");
-            writer.WriteLine("");
-            writer.WriteLine("[Log]");
-            writer.WriteLine(";前回使用したフォルダ");
-            writer.WriteLine("LastFolder=");
-            writer.WriteLine("");
-            writer.WriteLine("[BGM]");
-            writer.WriteLine(";SRC起動時");
-            writer.WriteLine("Opening=Opening.mid");
-            writer.WriteLine(";味方フェイズ開始時");
-            writer.WriteLine("Map1=Map1.mid");
-            writer.WriteLine(";敵フェイズ開始時");
-            writer.WriteLine("Map2=Map2.mid");
-            writer.WriteLine(";屋内マップの味方フェイズ開始時");
-            writer.WriteLine("Map3=Map3.mid");
-            writer.WriteLine(";屋内マップの敵フェイズ開始時");
-            writer.WriteLine("Map4=Map4.mid");
-            writer.WriteLine(";宇宙マップの味方フェイズ開始時");
-            writer.WriteLine("Map5=Map5.mid");
-            writer.WriteLine(";宇宙マップの敵フェイズ開始時");
-            writer.WriteLine("Map6=Map6.mid");
-            writer.WriteLine(";プロローグ・エピローグ開始時");
-            writer.WriteLine("Briefing=Briefing.mid");
-            writer.WriteLine(";インターミッション開始時");
-            writer.WriteLine("Intermission=Intermission.mid");
-            writer.WriteLine(";テロップ表示時");
-            writer.WriteLine("Subtitle=Subtitle.mid");
-            writer.WriteLine(";ゲームオーバー時");
-            writer.WriteLine("End=End.mid");
-            writer.WriteLine(";戦闘時のデフォルトMIDI");
-            writer.WriteLine("default=default.mid");
-            writer.WriteLine("");
-            writer.Close();
+            IniFileUtil.WriteIni("Option", "MP3Volume", "50", GlobalData.Instance.IniPath);
+            SoundManager.MP3Volume = 50;
         }
+        else
+        {
+            SoundManager.MP3Volume = int.Parse(buf);
+            if (SoundManager.MP3Volume < 0)
+            {
+                IniFileUtil.WriteIni("Option", "MP3Volume", "0", GlobalData.Instance.IniPath);
+                SoundManager.MP3Volume = 0;
+            }
+            else if (SoundManager.MP3Volume > 100)
+            {
+                IniFileUtil.WriteIni("Option", "MP3Volume", "100", GlobalData.Instance.IniPath);
+                SoundManager.MP3Volume = 100;
+            }
+        }
+
+
+        //MP3の入力直後のスリープ時間
+        buf = IniFileUtil.ReadIni("Option", "MP3InputSleep", "", GlobalData.Instance.IniPath);
+        if (buf == "")
+        {
+            IniFileUtil.WriteIni("Option", "MP3InputSleep", "5", GlobalData.Instance.IniPath);
+        }
+
+        //ＢＧＭ用MIDIファイル設定
+        if (IniFileUtil.ReadIni("BGM", "Opening", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Opening", "Opening.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map1", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map1", "Map1.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map2", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map2", "Map2.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map3", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map3", "Map3.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map4", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map4", "Map4.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map5", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map5", "Map5.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Map6", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Map6", "Map6.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Briefing", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Briefing", "Briefing.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Intermission", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Intermission", "Intermission.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "Subtitle", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "Subtitle", "Subtitle.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "End", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "End", "End.mid", GlobalData.Instance.IniPath);
+        }
+
+        if (IniFileUtil.ReadIni("BGM", "default", "", GlobalData.Instance.IniPath) == "")
+        {
+            IniFileUtil.WriteIni("BGM", "default", "default.mid", GlobalData.Instance.IniPath);
+        }
+        
+            
+        //起動時の引数から読み込むファイルを探す
+        string scenarioFileName = CommonLib.GetExeArgsLast();
+        var ext = Path.GetExtension(scenarioFileName).ToLower();
+        if (ext != ".src" && ext != ".eve")
+        {
+            //ダイアログを表示して読み込むファイルを指定する場合
+            
+            //ダイアログの初期フォルダをlogまたはapppathで設定
+            string scenarioPath =IniFileUtil.ReadIni("Log", "LastFolder", "", GlobalData.Instance.IniPath);
+            if (scenarioPath == "")
+            {
+                scenarioPath = GlobalData.Instance.AppPath;
+            }
+            
+            //拡張データのフォルダを設定
+            GlobalData.Instance.ExtDataPath = IniFileUtil.ReadIni("Option", "ExtDataPath", "", GlobalData.Instance.IniPath);
+            GlobalData.Instance.ExtDataPath2 = IniFileUtil.ReadIni("Option", "ExtDataPath2", "", GlobalData.Instance.IniPath);
+            
+            
+            //オープニング曲演奏
+            SoundManager.StopBGM();
+            SoundManager.StartBGM(SoundManager.BGMName("Opening"), true);
+        }
+
+
+
+
     }
 }

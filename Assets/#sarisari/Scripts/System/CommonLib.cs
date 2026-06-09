@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public static class CommonLib
@@ -53,5 +54,19 @@ public static class CommonLib
         }
         
         return version*100;
+    }
+    
+    
+    public static string GetExeArgsLast()
+    {
+        var args = Environment.GetCommandLineArgs();
+        string resultArgs = "";
+
+        foreach (var arg in args)
+        {
+            resultArgs = $"{arg}, {Environment.NewLine}";
+        }
+
+        return  resultArgs;
     }
 }

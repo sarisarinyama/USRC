@@ -1,8 +1,9 @@
 using UnityEngine;
-
+using Sirenix.OdinInspector;
 public class SRC : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public string testScenarioFile;
+    
     void Start()
     {
         //SRC初期設定

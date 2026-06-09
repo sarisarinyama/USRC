@@ -65,6 +65,7 @@ public class GlobalData : SingletonMonoBehaviour<GlobalData>
     [Title("透過描画にTransparentBltを使うか")] public bool UseTransparentBlt;
 
     [Title("SRC.exeのある場所")] public string AppPath;
+    [Title("SRC.iniの場所")] public string IniPath;
 
     [Title("データ中にレベル指定を省略した場合のデフォルトのレベル値")] public const int DEFAULT_LEVEL = -1000;
 
